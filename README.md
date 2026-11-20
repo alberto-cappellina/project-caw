@@ -187,7 +187,6 @@ notification; the other steps still run. On Linux you can use cron with the same
 - **Closed offers.** Alerts are not removed when an offer closes. Old offers are hidden by
   `stale_days`, but a recent one can still be closed.
 - **Job sites block scripts.** The project never opens the job pages. It only links them.
-- **No license yet.** Add a `LICENSE` file before you share or reuse the code.
 
 ## Tests
 
@@ -208,3 +207,7 @@ automation/         macOS weekly schedule (template + install script)
 config.toml         settings           profile.example.yaml   profile template
 .env.example        credentials template
 ```
+
+## License
+
+MIT. See [LICENSE](LICENSE).
