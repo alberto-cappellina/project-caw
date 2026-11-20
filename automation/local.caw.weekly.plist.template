@@ -18,16 +18,27 @@
         <key>PYTHONPATH</key>
         <string>__PROJECT_DIR__/src</string>
     </dict>
-    <!-- Every Tuesday at 13:00. If the Mac is off or asleep, it runs at the next wake-up. -->
+    <!-- Every Tuesday and Friday at 13:00 (Weekday: 2 = Tuesday, 5 = Friday).
+         If the Mac is off or asleep, the run happens at the next wake-up. -->
     <key>StartCalendarInterval</key>
-    <dict>
-        <key>Weekday</key>
-        <integer>2</integer>
-        <key>Hour</key>
-        <integer>13</integer>
-        <key>Minute</key>
-        <integer>0</integer>
-    </dict>
+    <array>
+        <dict>
+            <key>Weekday</key>
+            <integer>2</integer>
+            <key>Hour</key>
+            <integer>13</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+        <dict>
+            <key>Weekday</key>
+            <integer>5</integer>
+            <key>Hour</key>
+            <integer>13</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+    </array>
     <key>StandardOutPath</key>
     <string>__PROJECT_DIR__/logs/run.log</string>
     <key>StandardErrorPath</key>

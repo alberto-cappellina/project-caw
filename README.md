@@ -22,7 +22,7 @@ Gmail  ->  download  ->  archive (.eml + SQLite)  ->  parse offers
 6. **Reports** the matches in a Markdown and an HTML file, best scores first.
 7. **Marks** the processed emails in Gmail (read + a label), so you can see what is done.
 
-It can run once a week on its own (macOS `launchd` example included).
+It can run twice a week on its own (macOS `launchd` example included).
 
 ## Before you start: what to know
 
@@ -150,11 +150,11 @@ delete the label if you want. You can switch the marks off with `mark_read = fal
 - `profile.yaml` - your profile (see `profile.example.yaml`).
 - `.env` - passwords and keys. Never commit it.
 
-## Weekly schedule (macOS)
+## Schedule (macOS)
 
 ```bash
 automation/install.sh render      # show the LaunchAgent file for this machine
-automation/install.sh install     # install it (default: Tuesday 13:00)
+automation/install.sh install     # install it (default: Tuesday and Friday 13:00)
 automation/install.sh run-now     # start a test run
 automation/install.sh uninstall   # remove it
 ```
