@@ -1,0 +1,182 @@
+# Example profile. Copy this file to profile.yaml and edit it.
+# profile.yaml is git-ignored because it holds personal data (salary, home town, goals).
+#
+# How it is used:
+#   - The deterministic filters (src/caw/rules.py) read the structured fields below.
+#   - The LLM scorer (src/caw/score.py) reads `summary`, `roles` and `companies`.
+#   - Salary figures and the home town are never sent to the LLM.
+
+roles:                       # in order of preference (1 = best)
+  - {rank: 1, title: "Senior Android Engineer"}
+  - {rank: 2, title: "Senior Flutter Engineer"}
+  - {rank: 3, title: "Mobile Architect"}
+  - {rank: 4, title: "Mobile Technical Lead"}
+  - {rank: 5, title: "Mobile Security Specialist"}
+
+seniority: senior            # junior / internship offers are dropped
+technical_time_pct: [30, 70] # wanted share of hands-on work; no pure management roles
+
+skills:
+  core: [Kotlin, Java, Android, Flutter, Dart]
+  security: [OAuth2, OpenID Connect, biometrics, certificate pinning, mTLS]
+  iot: [BLE, NFC, Bluetooth]
+  growth: [LLM, AI agents, Python]
+
+salary_eur_ral:              # gross yearly salary (RAL), in EUR
+  current: 40000
+  bands:                     # in order of preference
+    - {min: 50000, max: 60000, label: "target"}
+    - {min: 46000, max: 49000, label: "interesting with good benefits"}
+  # Offers below `exclude_below` are dropped. Offers below `flag_below` stay in the report
+  # with the label `flag_label`. For a range such as 35,000-50,000 the maximum is compared.
+  exclude_below: 30000
+  flag_below: 45000
+  flag_label: "ral inferiore"
+  compare_on: max
+  targets: {senior_mobile_engineer: 55000, architect_or_tech_lead: 58000}
+  consider: [bonus, benefits, welfare, meal vouchers, flexible hours, remote work, stability, growth]
+
+location:
+  home: "Verona (VR)"
+  allowed:
+    - "full remote, workable from Italy"
+    - "hybrid with an office in the province of Verona"
+  excluded:
+    - "on-site outside the province of Verona"
+    - "hybrid with an office outside the province of Verona"
+
+companies:
+  preferred_types: [product company, software house, technology consulting, large company]
+  preferred_sectors: [fintech, digital identity, cybersecurity, enterprise software, IoT, automotive, AI engineering]
+  excluded_sectors: [gambling/betting, weapons/military, adult, speculative crypto/trading, tobacco, invasive surveillance]
+
+priorities:                  # in order of importance
+  - flexibility and work-life balance
+  - company and project stability
+  - professional and technical growth
+  - salary in line with seniority
+  - management and team quality
+  - hands-on technical role
+
+languages: {italian: native, english: C1}
+
+# Short text sent to the LLM scorer. Do not put salary or personal data here.
+summary: >
+  Senior mobile engineer with 10+ years of experience in native Android (Kotlin/Java) and
+  Flutter. Strong in mobile architecture, application security (OAuth2/OIDC, biometrics,
+  certificate pinning, mTLS), backend integration, BLE/IoT and code review. Looks for a
+  Senior/Lead or Architect role with a strong hands-on part, not a pure management role.
+  Goal: a new job within about six months, with growing architecture and leadership
+  responsibility. Overall quality of the job and working conditions matter, not only salary.
+
+scoring:
+  match: 70   # score >= match -> "match"
+  maybe: 40   # score >= maybe -> "forse" (maybe), otherwise "escluso" (excluded)
+
+filters:
+  # Words that drop an offer when found in the title (unless the title also says "senior").
+  junior_keywords: [junior, jr, stage, stagista, intern, internship, trainee, apprendist, tirocin, graduate]
+  # Words that drop an offer when found in title, company or labels.
+  excluded_keywords: [gambling, betting, casino, scommess, poker, crypto, cripto, tabacco, tobacco, "adult entertainment", weapons, armi da fuoco]
+  # Vague places: the filters cannot tell if they are in the home province -> "to verify".
+  generic_locations: [italia, italy, veneto, lombardia, emilia romagna, trentino alto adige, friuli venezia giulia, piemonte, toscana, lazio, europa, europe, emea]
+  remote_hints: [remote, remoto, full remote, smart working, da remoto, work from home]
+  # Municipalities of the home province. Matching ignores accents and case.
+  verona_province_places:
+    - Verona
+    - Affi
+    - Albaredo d'Adige
+    - Angiari
+    - Arcole
+    - Badia Calavena
+    - Bardolino
+    - Belfiore
+    - Bevilacqua
+    - Bonavigo
+    - Boschi Sant'Anna
+    - Bosco Chiesanuova
+    - Bovolone
+    - Brentino Belluno
+    - Brenzone sul Garda
+    - Bussolengo
+    - Buttapietra
+    - Caldiero
+    - Caprino Veronese
+    - Casaleone
+    - Castagnaro
+    - Castel d'Azzano
+    - Castelnuovo del Garda
+    - Cavaion Veronese
+    - Cazzano di Tramigna
+    - Cerea
+    - Cerro Veronese
+    - Cologna Veneta
+    - Colognola ai Colli
+    - Concamarise
+    - Costermano sul Garda
+    - Dolcè
+    - Erbè
+    - Erbezzo
+    - Ferrara di Monte Baldo
+    - Fumane
+    - Garda
+    - Gazzo Veronese
+    - Grezzana
+    - Illasi
+    - Isola della Scala
+    - Isola Rizza
+    - Lavagno
+    - Lazise
+    - Legnago
+    - Malcesine
+    - Marano di Valpolicella
+    - Mezzane di Sotto
+    - Minerbe
+    - Montecchia di Crosara
+    - Monteforte d'Alpone
+    - Mozzecane
+    - Negrar di Valpolicella
+    - Nogara
+    - Nogarole Rocca
+    - Oppeano
+    - Palù
+    - Pastrengo
+    - Pescantina
+    - Peschiera del Garda
+    - Povegliano Veronese
+    - Pressana
+    - Rivoli Veronese
+    - Roncà
+    - Ronco all'Adige
+    - Roverchiara
+    - Roveredo di Guà
+    - Roverè Veronese
+    - Salizzole
+    - San Bonifacio
+    - San Giovanni Ilarione
+    - San Giovanni Lupatoto
+    - San Martino Buon Albergo
+    - San Mauro di Saline
+    - San Pietro di Morubio
+    - San Pietro in Cariano
+    - Sant'Ambrogio di Valpolicella
+    - Sant'Anna d'Alfaedo
+    - Sanguinetto
+    - Selva di Progno
+    - Soave
+    - Sommacampagna
+    - Sona
+    - Sorgà
+    - Terrazzo
+    - Torri del Benaco
+    - Tregnago
+    - Trevenzuolo
+    - Valeggio sul Mincio
+    - Velo Veronese
+    - Veronella
+    - Vestenanova
+    - Vigasio
+    - Villa Bartolomea
+    - Villafranca di Verona
+    - Zevio
+    - Zimella

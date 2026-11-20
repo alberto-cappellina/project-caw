@@ -1,0 +1,49 @@
+[imap]
+host = "imap.gmail.com"
+port = 993
+# "All Mail" covers every label. The folder name depends on the account language and region,
+# for example "[Gmail]/All Mail", "[Google Mail]/All Mail" or "[Gmail]/Tutti i messaggi".
+# Run `python -m caw.fetch --list-folders` to see the right name for your account.
+folder = "[Google Mail]/All Mail"
+
+[fetch]
+# Gmail search syntax (the same you type in the Gmail search bar).
+# It limits the download to job-alert emails only.
+# Examples: "label:alerts", "from:(linkedin.com OR indeed.com OR infojobs.it)"
+gmail_query = "(label:caw OR from:mailer@jobleads.com)"
+# Search window: how far back to look on every run (emails already downloaded are skipped).
+initial_lookback_days = 180
+# Emails received before this date are ignored (not downloaded and not processed).
+# Remove the line to read the whole history.
+ignore_before = "2026-11-20"
+# After processing, the emails that were read successfully are marked in Gmail: the "read"
+# flag and a label. These are the only changes made to the mailbox (no moves, no deletes).
+# Emails the parser cannot read stay unread and unlabeled, so you can notice them.
+mark_read = true
+processed_label = "caw-processed"   # "" = do not add the label
+# How many emails to download per IMAP request.
+batch_size = 50
+
+[paths]
+raw_dir = "archive/raw"
+state_file = "data/fetch_state.json"
+db_file = "data/caw.db"
+reports_dir = "reports"
+
+[llm]
+# "auto": OpenRouter if OPENROUTER_API_KEY is set, then the Anthropic API (ANTHROPIC_API_KEY),
+# otherwise the `claude` CLI. You can force one with "openrouter" | "api" | "cli".
+backend = "auto"
+openrouter_model = "anthropic/claude-haiku-5.5"
+api_model = "claude-haiku-5-5"
+cli_model = "haiku"
+# How many offers to score in each LLM request.
+batch_size = 10
+
+[report]
+# An offer not seen in any email for this many days is probably expired on the site:
+# it stays in the archive but is left out of the report (use --include-stale to see it).
+stale_days = 30
+# "Expired" offers with a high score (match) seen in the last N days go to a separate
+# "to verify" section instead of disappearing. Older than N days they are considered lost.
+stale_review_days = 60

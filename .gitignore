@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+archive/
+data/
+reports/
+credentials*.json
+token*.json
+logs/
+profile.yaml
