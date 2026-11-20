@@ -33,7 +33,7 @@ class ParseResult:
 
 def parse_email(msg: EmailMessage) -> ParseResult | None:
     """Pick the parser from the sender; return None if the email is not supported."""
-    from . import indeed, jobleads, linkedin
+    from . import indeed, jobleads, linkedin, talent
 
     sender = str(msg.get("From", "")).lower()
     if "jobleads.com" in sender:
@@ -42,4 +42,6 @@ def parse_email(msg: EmailMessage) -> ParseResult | None:
         return indeed.parse(msg)
     if "linkedin.com" in sender:
         return linkedin.parse(msg)
+    if "talent.com" in sender:
+        return talent.parse(msg)
     return None

@@ -3,7 +3,7 @@
 caw reads the job-alert emails in your Gmail account, extracts every offer, drops the ones
 that do not fit your profile, and writes a short report with the best matches.
 
-It is built for people who receive many alert emails (JobLeads, Indeed, LinkedIn) and do not
+It is built for people who receive many alert emails (JobLeads, Indeed, LinkedIn, Talent.com) and do not
 want to read them one by one. Everything runs on your own computer. The only outside service
 is an optional LLM that scores the offers.
 
@@ -182,6 +182,10 @@ notification; the other steps still run. On Linux you can use cron with the same
 - **Parser formats.** Parsers match the real wording of the emails (for example the Italian
   JobLeads and Indeed alerts and the English LinkedIn notifications). If a sender changes its
   layout, the parser must be updated.
+- **Talent.com.** The alert shows the place of the search, not always the place of the job, so
+  remote or national offers also show your city. Only a title with "remote" sets the work mode.
+  The salary format was not seen in a real email yet: a line that is not understood is kept as
+  a label and written in the email notes.
 - **Little context.** Alert emails have no job description, so scores come from the title,
   company, place and salary only. Titles like "Software Engineer" often end as "maybe".
 - **Closed offers.** Alerts are not removed when an offer closes. Old offers are hidden by
