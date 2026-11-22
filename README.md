@@ -77,6 +77,9 @@ PYTHONPATH=src .venv/bin/python -m caw.fetch --dry-run   # how many emails would
 PYTHONPATH=src .venv/bin/python -m caw.run
 ```
 
+Or use the script `./run.sh`: it does the same, sets the paths for you, passes any option
+to `caw.run`, and also writes the output to `logs/run.log`.
+
 The report is written to `reports/YYYY-MM-DD.html` and `.md`.
 
 ## Commands
