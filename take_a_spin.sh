@@ -1,10 +1,10 @@
 #!/bin/sh
 # Run the whole pipeline once, on demand (the same thing the weekly schedule does).
 #
-#   ./run.sh                # download, parse, mark in Gmail, score, report
-#   ./run.sh --all          # the report lists all offers that are still open
-#   ./run.sh --no-fetch     # skip Gmail, work on the local archive only
-#   ./run.sh --notify       # also show a macOS notification at the end
+#   ./take_a_spin.sh                # download, parse, mark in Gmail, score, report
+#   ./take_a_spin.sh --all          # the report lists all offers that are still open
+#   ./take_a_spin.sh --no-fetch     # skip Gmail, work on the local archive only
+#   ./take_a_spin.sh --notify       # also show a macOS notification at the end
 #
 # Any option is passed to `python -m caw.run`. Output goes to the terminal and is also
 # appended to logs/run.log. Exit code: 0 = ok, 1 = at least one step failed.
@@ -20,7 +20,7 @@ fi
 
 mkdir -p logs
 export PYTHONPATH="$PROJECT/src"
-echo "=== $(date '+%Y-%m-%d %H:%M:%S') run.sh $* ===" >> logs/run.log
+echo "=== $(date '+%Y-%m-%d %H:%M:%S') take_a_spin.sh $* ===" >> logs/run.log
 
 # `tee` hides the exit code of python, so save it in a file. `set +e`: a failing step must not
 # stop the script before the code is saved.
